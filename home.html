@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+		<link rel="icon" href="static/images/favicon-2.png">
+
+    <title>Kual - Friends on Github</title>
+		<!-- Reset CSS -->
+		<link href="static/css/reset.css" rel="stylesheet">
+		
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="static/css/dashboard.css" rel="stylesheet">
+		<link href="static/css/album.css" rel="stylesheet">
+		<link href="static/css/main.css" rel="stylesheet">
+  </head>
+
+  <body id="appController" ng-controller="appController">
+	  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">		
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img src="static/images/01_logo_kuau.png"></a>
+			<a role='button' id='bt_collapse' href="#" class="form-control form-control-dark nav-link" aria-expanded='false' data-toggle="collapse" data-target="#collapseExample">☰</a>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="collapseExample" class="col-md-2 bg-light sidebar show">
+          <div class="sidebar-sticky"><!-- -->
+						<ul class="nav flex-column">
+							<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+								<span> s</span>
+								<a class="d-flex align-items-center text-muted" href="#">
+								</a>
+							</h6>
+							<li class="nav-item active">
+                <a class="nav-link" data-toggle="tab" href="#menu_search">
+                  <span data-feather="search"></span>
+                  Buscar Amigos
+                </a>
+              </li>
+            </ul>
+						
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>AMIGOS</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+							<li class="nav-item" ng-repeat="user in friends_list">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#modal_profile" ng-click='view_friend(user)'>
+                  <span><img class='user-icon' ng-src="{{ user.avatar }}" height='24' width='24'></span>
+                  {{ user.name}}
+                </a>
+              </li>
+							
+							<li ng-if='friends_list.length==0'class="nav-item">
+                <a class="nav-link gray" href="#">
+                  Nenhum amigo
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+				
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="tab-content">
+						<div id="menu_search" class="tab-pane fade in active">
+							<div class='row' ng-if='start_search == true' >
+								<div class='col-lg-8 panel-search'>
+									<input class="form-control" placeholder="Search" id="search" ng-keyup="search_users()" ng-model='search' aria-label="Search" type="text">
+								</div>
+								
+								<div class='col-lg-4' style='padding-top: 8px;'>
+									<span style="float: right;position: relative;text-align:right; left: -8px; top: 0px; color: #ccc;">Vizualizando {{ result_list.length|currency:'':0 }} de {{ result_numbers|currency:'':0 }} Resultados</span>
+								</div>
+							</div>
+							
+							<section ng-if='start_search == false' class="jumbotron text-center" style='padding-bottom: 10px;'>							
+								<div class="container">
+									<h1 class="jumbotron-heading">Procurando seus amigos no Github?</h1>
+									<p class="lead text-muted">Com o Kual Friends você encontra eles muito mais rápido. </p>
+									<p>
+										<input class="form-control w-100" id='search2' autofocus="true" placeholder="Search" ng-keyup="init_search()" ng-model='search' aria-label="Search" type="text">
+									</p>
+								</div>
+							</section>
+						
+							<div ng-if='result_list.length > 0' class="album bg-light" style="margin-top: 18px; padding-top: 15px;border-top: 1px solid #eee;">
+								<div class="container">
+									<div class="row">							
+										<div class="col-md-3" ng-repeat='item in result_list'>
+											<a data-toggle="modal" data-target="#modal_profile" ng-click="get_details(item.login)">
+												<div class="card mb-3 box-shadow" title='Clique aqui para visualizar mais detalhes.'>										
+													<div class='card-image'>
+														<img class="card-img-top" ng-src="{{ item.avatar_url }}">
+													</div>
+													<div class="card-title" style="display:block;width:100%;">
+														<h6>{{ item.login }}</h6>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div id="menu_friends" class="tab-pane fade">
+							<h3>Menu 2</h3>
+							<p>Some content in menu 2.</p>
+						</div>
+					</div>
+        </main>
+				
+				<!-- Modal -->
+				<div class="modal fade bd-example-modal-lg" id="modal_profile" tabindex="-1" role="dialog" aria-labelledby="modal_profileTitle" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">{{ selected_profile.name }}</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<table class='table-striped' style='width: 100%;'>
+									<tr><td>Username:</td><td>{{ selected_profile.login }}</td></tr>
+									<tr><td>GitHub Page:</td><td>{{ selected_profile.user_page }}</td></tr>									
+									<tr><td>Email:</td><td>{{ selected_profile.email }}</td></tr>
+									<tr><td>Endereço:</td><td>{{ selected_profile.location }}</td></tr>								
+									<tr><td>Seguidores:</td><td>{{ selected_profile.followers }}</td></tr>
+									<tr><td>Seguindo:</td><td>{{ selected_profile.following }}</td></tr>											
+									<tr><td>Ultima Alteração:</td><td>{{ selected_profile.updated_at| date:'dd/MM/yyyy' }} às {{ selected_profile.updated_at| date:'HH:mm:ss' }}</td></tr>			
+									<tr><td style='width: 160px;'>Data do Cadastrado:</td><td>{{ selected_profile.created_at| date:'dd/MM/yyyy' }} às {{ selected_profile.created_at| date:'HH:mm:ss' }}</td></tr>
+									<tr><td style='width: 160px;'>Biografia:</td><td>{{ selected_profile.bio }}</td></tr>
+								</table>
+							</div>
+							<div class="modal-footer" ng-if='can_add_friend'>
+								<button type="button" class="btn btn-primary" ng-click='add_friend()' data-dismiss="modal">Adicionar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.10/angular.min.js"></script>		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<!--<script src="static\bower\bootstrap\dist\js\bootstrap.min.js"></script>
+    <script src="static\bower\popper.js\dist\popper.min.js" type="module"></script>-->
+		
+    <script src="static\js\appController.js"></script>
+		<script src="static\js\base.js"></script>
+    <!-- Icons -->
+    <script src="static\bower\feather-icons\index.js"></script>
+    <script>
+      feather.replace()
+    </script>
+  </body>
+</html>

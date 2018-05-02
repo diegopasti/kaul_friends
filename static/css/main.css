@@ -1,0 +1,112 @@
+/*body{
+  height : 100vh;
+  overflow : scroll;
+}*/
+
+.gray {
+	color: #bbb !important;	
+}
+
+.navbar-brand img{
+	height: 18px !important;
+	width: 90px !important;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nav-link{
+	display: block;	
+	cursor: pointer;
+}
+
+.reduce-title{
+	padding-top: 0px;
+	padding-bottom: 0px;	
+	margin-left: 0px;
+	-ms-transform: translate(0px,-10px); /* IE 9 */
+	-webkit-transform: translate(0px,-10px); /* Safari */
+	transform: translate(0px,-10px); /* Standard syntax */
+	border-bottom: 1px solid #ddd;
+}
+
+.panel-search{
+	height:55px;
+}
+
+#search {
+	width: 100%;
+	float:left;
+}
+#result_label{
+	float: left;
+	position: relative;
+	width: 100%;
+	top: -30px;
+	right: 15px;
+	font-size: 13px;
+	color: #888;
+	text-align: right;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+		margin: 0 2px;
+    padding: 6px 10px;
+    text-decoration: none;
+		border: 1px solid #ddd;
+		transition: background-color .3s;
+}
+
+.pagination a.active {
+    border-radius: 5px;
+}
+
+.pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+.user-icon{
+	width: 24px
+	height: 24px;
+	border-radius: 5px;
+}
+
+#menu_search {
+	padding-bottom: 30px;
+}
+#button_top_page {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#button_top_page:hover {
+  background-color: #555;
+}
+
+.collapse:active{
+	background: red;
+}

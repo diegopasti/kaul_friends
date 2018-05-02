@@ -1,0 +1,32 @@
+{
+  "name": "kual_myfriends",
+  "authors": [
+    "diegopasti <diegopasti@gmail.com>"
+  ],
+  "description": "Friends search engine in Github",
+  "main": "main",
+  "keywords": [
+    "search",
+    "engine",
+    "friends"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/diegopasti",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "static/bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "bootstrap": "^4.1.0",
+		"angular": "^1.6.10",
+    
+		"chart.js": "^2.7.2",
+		"popper.js": "^1.14.3",
+		"feather-icons": "https://unpkg.com/feather-icons@4.7.0/dist/feather.min.js",
+    
+    
+  }
+}
